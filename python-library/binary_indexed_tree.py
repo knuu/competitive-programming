@@ -26,7 +26,7 @@ def init():
 def add(update, value):
     x = update
     while x <= n:
-        bit[x] += w
+        bit[x] += value
         x += x & -x
 
 # 和の計算(bit[1] + ... + bit[update])
@@ -51,7 +51,7 @@ def init():
 def add(update, value):
     x = update
     while x < n:
-        bit[x] += w
+        bit[x] += value
         x |= x + 1
 
 # 和の計算(bit[0] + ... + bit[update - 1] , update個の和)
