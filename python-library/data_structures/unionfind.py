@@ -1,6 +1,9 @@
 class UnionFindTree:
     """Disjoint-Set Data Structure
-       Union-Find Tree"""
+       Union-Find Tree
+       
+       used in SRM505 div.2 900
+    """
     def __init__(self, n):
         self.par = list(range(n)) # parent
         self.rank = [0] * n # depth of tree

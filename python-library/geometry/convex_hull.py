@@ -1,3 +1,4 @@
+# used in AOJ No.68, yukicoder No.199
 def convex_hull(ps):
     ps = [Point(x, y) for x, y in sorted([(p.x, p.y) for p in ps])]
     lower_hull = get_bounds(ps)
