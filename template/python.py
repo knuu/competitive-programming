@@ -1,14 +1,16 @@
-from queue import Queue
-from queue import PriorityQueue as PQueue
-from queue import LifoQueue as Stack
+from heapq import heapify, heappush, heappop
 from collections import Counter, defaultdict, deque, OrderedDict
-
 from sys import setrecursionlimit as setreclim
 from sys import maxsize
 from bisect import bisect_left, bisect, insort_left, insort
-import math
+from math import ceil, log, factorial, hypot, pi
 from fractions import gcd
 from copy import deepcopy
 from functools import reduce
-from itertools import * 
-import string        
+from operator import mul
+from itertools import product, permutations, combinations, accumulate, cycle
+from string import ascii_uppercase, ascii_lowercase, ascii_letters, digits, hexdigits, octdigits
+
+prod = lambda l: reduce(mul, l)
+prodmod = lambda l, mod: reduce(lambda x, y: mul(x,y)%mod, l)
+

@@ -1,4 +1,4 @@
-# used in ProjectEuler No.12
+# used in ProjectEuler No.12, yukicoder No.36
 
 from copy import deepcopy
 from functools import reduce
@@ -11,15 +11,15 @@ class Divisor:
             self.primeFactorization = {1: 1}
         else:
             self.primeFactorization = {}
-            for i in range(2, n//2+1):
+            for i in range(2, int(n**0.5)+1):
                 cnt = 0
                 while number % i == 0:
                     cnt += 1;
                     number //= i
                 if cnt > 0:
                     self.primeFactorization[i] = cnt
-            if len(self.primeFactorization) == 0:
-                self.primeFactorization.append[n] = 1
+            if number > 1:
+                self.primeFactorization[number] = 1
 
     def primeFactors(self):
         return deepcopy(self.primeFactorization)
@@ -38,7 +38,7 @@ class Divisor:
 
 def divisorsList(n):
     divsList = []
-    for i in range(1, int(pow(n, 0.5))+1):
+    for i in range(1, int(n**0.5)+1):
         if n % i == 0:
             divsList.append(i)
             if n // i != i:
