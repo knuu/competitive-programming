@@ -1,11 +1,11 @@
-# used in ProjectEuler No.12, yukicoder No.36
-
 from copy import deepcopy
 from functools import reduce
 
 class Divisor:
     def __init__(self, n):
-        """ make divisors list and prime factorization list of n"""
+        """ make divisors list and prime factorization list of n
+            used in ProjectEuler No.12, yukicoder No.36
+        """
         number = n
         if number == 1:
             self.primeFactorization = {1: 1}
