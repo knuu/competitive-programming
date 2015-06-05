@@ -1,7 +1,9 @@
 class UnionFindTree:
     """Disjoint-Set Data Structure
        Union-Find Tree
-       
+       complexity: 
+          init: O(n)
+          find, unite, same: O(alpha(n))
        used in SRM505 div.2 900
     """
     def __init__(self, n):

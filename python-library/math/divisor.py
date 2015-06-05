@@ -4,6 +4,7 @@ from functools import reduce
 class Divisor:
     def __init__(self, n):
         """ make divisors list and prime factorization list of n
+            complexity: O(n^(1/2))
             used in ProjectEuler No.12, yukicoder No.36
         """
         number = n

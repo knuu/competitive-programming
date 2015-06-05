@@ -1,6 +1,6 @@
 class Prime:
     """ make prime numbers lists
-
+        complexity: O(n^(1/2))
         used in AOJ0202
     """
 

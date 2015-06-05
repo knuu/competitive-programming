@@ -1,6 +1,7 @@
 class WarshallFloyd():
     """Warshall-Floyd Algorithm: 
        find the lengths of the shortest paths between all pairs of vertices
+       complexity: O(V^3)
        used in GRL1C(AOJ), aoj0189
     """
 

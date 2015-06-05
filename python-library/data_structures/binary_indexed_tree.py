@@ -2,7 +2,7 @@
 # used in ARC031 C, indeednow finalB E
 """
 Binary Indexed Tree
-total number: n個
+total number: n
 queries:
 1. update
 2. a sum interval 
