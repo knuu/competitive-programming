@@ -8,14 +8,18 @@ competitive-programming
 <dl>
   <dt>Aizu Online Judge</dt>
   <dt>Atcoder</dt>
+  <dt>Codeforces</dt>
+  <dt>yukicoder</dt>
   <dt>PKU</dt>
   <dt>python-library</dt>
     <dd>pythonで実装したものを置いておく場所</dd>
 </dl>
 
+## TODO
+- topcoderを入れる
 
-<dl>
-  <dt>TODO</dt>
-    <dd>ないものをひっぱってくる</dd>
-    <dd>ファイル名を小文字にする</dd>
-</dl>
+# LICENSE
+MIT
+
+# Author
+knuu
