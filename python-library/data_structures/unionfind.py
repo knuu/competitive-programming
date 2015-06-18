@@ -18,10 +18,8 @@ class UnionFindTree:
             return self.par[x]
 
     def unite(self, x, y):
-        x = self.find(x)
-        y = self.find(y)
+        x, y = self.find(x), self.find(y)
         if x == y: return
-
         if self.rank[x] < self.rank[y]:
             self.par[x] = y
         else:

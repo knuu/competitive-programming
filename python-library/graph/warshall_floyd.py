@@ -8,7 +8,6 @@ class WarshallFloyd():
     def __init__(self, V, E, INF=10**9):
         """ V: the number of vertexes
             E: adjacency list
-            start: start vertex
             INF: Infinity distance
         """
         self.V = V
