@@ -3,8 +3,8 @@ class FenwickTree1:
     FenwickTree(Binary Indexed Tree)
     total number: n
     queries:
-    1. update
-    2. a sum interval 
+    1. add(i, val): add val to i-th value 
+    2. sum(n): sum(bit[1] + ... + bit[n])
     complexity: O(log n)
 
     Self-balancing binary search tree or Segment Tree can do the same, it takes longer to program and complexity also increases.
@@ -19,17 +19,16 @@ class FenwickTree1:
         for i in range(1, self.N):
             self.bit[i + (i & -i)] += self.bit[i]
 
-    def add(self, update, value):
-        while update <= self.N:
-            self.bit[update] += value
-            update += update & -update
+    def add(self, i, val):
+        while i <= self.N:
+            self.bit[i] += val
+            i += i & -i
 
-    def sum(self, update):
-        # sum(bit[1] + ... + bit[update])
+    def sum(self, n):
         ret = 0
-        while update > 0:
-            ret += self.bit[update]
-            update -= update & -update
+        while n > 0:
+            ret += self.bit[n]
+            n -= n & -n
         return ret
 
 class FenwickTree:
@@ -37,8 +36,8 @@ class FenwickTree:
     FenwickTree(Binary Indexed Tree)
     total number: n
     queries:
-    1. update
-    2. a sum interval 
+    1. add(i, val): add val to i-th value 
+    2. sum(n): sum(bit[0] + ... + bit[n-1])
     complexity: O(log n)
 
     Self-balancing binary search tree or Segment Tree can do the same, it takes longer to program and complexity also increases.
@@ -54,17 +53,16 @@ class FenwickTree:
         for i in range(self.N-1):
             self.bit[i | (i+1)] += self.bit[i]
 
-    def add(self, update, value):
-        while update < self.N:
-            self.bit[update] += value
-            update |= update + 1
+    def add(self, i, val):
+        while i < self.N:
+            self.bit[i] += val
+            i |= i + 1
 
-    def sum(self, update):
-        # sum(bit[1] + ... + bit[update])
+    def sum(self, n):
         ret = 0
-        while update >= 0:
-            ret += self.bit[update]
-            update = (update & (update + 1)) - 1
+        while n >= 0:
+            ret += self.bit[n]
+            n = (n & (n + 1)) - 1
         return ret
 
 
