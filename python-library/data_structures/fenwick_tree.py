@@ -43,7 +43,7 @@ class FenwickTree:
     Self-balancing binary search tree or Segment Tree can do the same, it takes longer to program and complexity also increases.
     Thanks: http://hos.ac/slides/20140319_bit.pdf
     
-    used in ARC031 C, indeednow finalB E
+    used in ARC031 C, indeednow finalB E, DSL2B(AOJ)
     """
     def __init__(self, a_list):
         # 0-indexed
@@ -64,5 +64,3 @@ class FenwickTree:
             ret += self.bit[n]
             n = (n & (n + 1)) - 1
         return ret
-
-

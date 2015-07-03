@@ -5,7 +5,8 @@ class RangeMinimumQuery:
     1. update(i, val): update i-th value to val
     2. query(low, high): find minimun value in [low, high)
     time complexity: O(log n)
-    space complexity: O(2n)    
+    space complexity: O(2n) 
+    used in DSL2A(AOJ)
     """
     def __init__(self, N, INF=float('inf')):
         self.N = 1 << math.ceil(math.log(N, 2))
