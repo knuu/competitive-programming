@@ -12,6 +12,8 @@ from string import ascii_uppercase, ascii_lowercase, ascii_letters, digits, hexd
 
 prod = lambda l: reduce(mul, l)
 prodmod = lambda l, mod: reduce(lambda x, y: mul(x,y)%mod, l)
+argmax = lambda l: l.index(max(l))
+argmin = lambda l: l.index(min(l))
 
 def read_list(t): return [t(x) for x in input().split()]
 def read_line(t): return t(input())

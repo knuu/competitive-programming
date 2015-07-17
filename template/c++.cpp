@@ -5,8 +5,8 @@ typedef long long int ll;
 typedef pair<int, int> P;
 typedef pair<ll, ll> Pll;
 typedef vector<int> Vi;
-#define REP(i,x) for(int i=0;i<(int)(x);i++)
 #define FOR(i,s,x) for(int i=s;i<(int)(x);i++)
+#define REP(i,x) FOR(i,0,x)
 #define PB push_back
 #define MP make_pair
 #define DUMP( x ) cerr << #x << " = " << ( x ) << endl
