@@ -41,7 +41,7 @@ def miller_rabin(n):
         s += 1
 
     for prime in primes:
-        if prime >= n: break
+        if prime >= n: continue
         x = pow(prime, d, n)
         if x == 1: break
         for r in range(s):
