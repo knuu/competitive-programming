@@ -15,6 +15,7 @@ typedef tuple<int, int, int> T;
 #define snd second
 
 int main() {
+  ios_base::sync_with_stdio(false);
 
   return 0;
 }
