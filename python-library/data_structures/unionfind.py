@@ -1,14 +1,14 @@
 class UnionFindTree:
     """Disjoint-Set Data Structure
        Union-Find Tree
-       complexity: 
+       complexity:
           init: O(n)
           find, unite, same: O(alpha(n))
        used in SRM505 div.2 900, ATC001 A, DSL1A(AOJ)
     """
     def __init__(self, n):
-        self.par = list(range(n)) # parent
-        self.rank = [0] * n # depth of tree
+        self.par = list(range(n))  # parent
+        self.rank = [0] * n  # depth of tree
 
     def find(self, x):
         if self.par[x] == x:
@@ -19,7 +19,8 @@ class UnionFindTree:
 
     def unite(self, x, y):
         x, y = self.find(x), self.find(y)
-        if x == y: return
+        if x == y:
+            return
         if self.rank[x] < self.rank[y]:
             self.par[x] = y
         else:
@@ -29,4 +30,3 @@ class UnionFindTree:
 
     def same(self, x, y):
         return self.find(x) == self.find(y)
-    

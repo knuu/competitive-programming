@@ -15,22 +15,23 @@ class BellmanFord:
         self.bellman_ford(start, INF)
 
     def bellman_ford(self, start, INF):
-        self.distance = [INF] * self.V # distance from start
-        self.prev = [-1] * self.V # prev vertex of shortest path
+        self.distance = [INF] * self.V  # distance from start
+        self.prev = [-1] * self.V  # prev vertex of shortest path
         self.distance[start] = 0
         self.negativeCycle = False
-        
+
         for i in range(self.V):
             update = False
             for fr in range(self.V):
                 for to, cost in self.E[fr]:
-                    if self.distance[fr] != INF and self.distance[fr] + cost < self.distance[to]:
+                    if self.distance[fr] != INF and \
+                       self.distance[fr] + cost < self.distance[to]:
                         self.distance[to] = self.distance[fr] + cost
-                        self.prev[to] = v
+                        self.prev[to] = fr
                         update = True
                         if i == self.V - 1:
                             self.negativeCycle = True
-            if update == False:
+            if update:
                 break
 
     def getPath(self, end):
@@ -42,5 +43,3 @@ class BellmanFord:
 
     def hasNegativeCycle(self):
         return self.negativeCycle
-
-            

@@ -1,3 +1,6 @@
+import heapq
+
+
 class Prim:
     """ Prim's algorithm: find minimum spanning tree
         Complexity: O(E log(V))
@@ -16,15 +19,15 @@ class Prim:
         used = [False] * V
         self.mincost = 0
         que = []
-        heappush(que, (0, 0))
+        heapq.heappush(que, (0, 0))
         while len(que) > 0:
-            cost, v = heappop(que)
-            if used[v]: continue
+            cost, v = heapq.heappop(que)
+            if used[v]:
+                continue
             used[v] = True
-            ans += cost
+            self.mincost += cost
             for to, c in E[v]:
-                heappush(que, (c, to))
+                heapq.heappush(que, (c, to))
 
     def minCost(self):
-        return mincost
-    
+        return self.mincost

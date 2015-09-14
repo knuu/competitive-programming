@@ -1,3 +1,6 @@
+import collections
+
+
 class Dinic:
     """Dinic Algorithm: find max-flow
        complexity: O(EV^2)
@@ -35,7 +38,7 @@ class Dinic:
                 if flow > 0:
                     maxflow += flow
                 else:
-                    break            
+                    break
 
     def dfs(self, vertex, sink, flow):
         """find augmenting path"""
@@ -54,11 +57,11 @@ class Dinic:
 
     def bfs(self, start):
         """find shortest path from start"""
-        que = deque()
+        que = collections.deque()
         self.level = [-1] * self.V
         que.append(start)
         self.level[start] = 0
-        
+
         while que:
             fr = que.popleft()
             for e in self.E[fr]:

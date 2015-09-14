@@ -1,5 +1,6 @@
 from copy import deepcopy
 
+
 def pascalsTriangle(n):
     assert n >= 0
     psTri = [[0]*n for _ in range(n)]

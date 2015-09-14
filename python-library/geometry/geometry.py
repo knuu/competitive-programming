@@ -1,7 +1,9 @@
 eps = 1e-10
 
+
 def add(a, b):
     return 0 if abs(a + b) < eps * (abs(a) + abs(b)) else a + b
+
 
 class Point:
     def __init__(self, x, y):

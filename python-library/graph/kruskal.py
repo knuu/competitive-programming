@@ -14,7 +14,8 @@ class Kruskal:
         edges = []
         for v1 in range(V):
             for v2, cost in E[v1]:
-                if v1 < v2: edges.append((cost, v1, v2))
+                if v1 < v2:
+                    edges.append((cost, v1, v2))
         edges.sort(reverse=True)
         self.mincost = 0
         self.minSpanningTree = []

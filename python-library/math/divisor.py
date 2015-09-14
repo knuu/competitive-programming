@@ -1,6 +1,7 @@
 from copy import deepcopy
 from functools import reduce
 
+
 class Divisor:
     def __init__(self, n):
         """ make divisors list and prime factorization list of n
@@ -15,7 +16,7 @@ class Divisor:
             for i in range(2, int(n**0.5)+1):
                 cnt = 0
                 while number % i == 0:
-                    cnt += 1;
+                    cnt += 1
                     number //= i
                 if cnt > 0:
                     self.primeFactorization[i] = cnt
@@ -36,6 +37,7 @@ class Divisor:
 
     def sumDivisors(self):
         return reduce(lambda x, y: x * y, [sum(p**i for i in range(n+1)) for p, n in self.primeFactorization.items()])
+
 
 def divisorsList(n):
     divsList = []

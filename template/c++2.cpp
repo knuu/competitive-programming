@@ -1,11 +1,27 @@
-#include <bits/stdc++.h>
+// for poj (old g++ version, cannot use bits/stdc++.h)
+
+#include <cassert>
+#include <cmath>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <map>
+#include <set>
+#include <queue>
+#include <vector>
+#include <iostream>
+#include <bitset>
+#include <algorithm>
+#include <complex>
+#include <string>
+#include <utility>
 
 using namespace std;
 typedef long long int ll;
 typedef pair<int, int> P;
 typedef pair<ll, ll> Pll;
 typedef vector<int> Vi;
-typedef tuple<int, int, int> T;
+typedef pair<int, P> T;
 #define FOR(i,s,x) for(int i=s;i<(int)(x);i++)
 #define REP(i,x) FOR(i,0,x)
 #define ALL(c) c.begin(), c.end()

@@ -1,8 +1,12 @@
 def mkrot(x, y):
     r = pow(x**2+y**2, 0.5)
     return x/r, y/r
+
+
 def rot(x, y, c, s):
     return c*x+s*y, -s*x+c*y
+
+
 def givens(A, b):
     """ solve linear equation
         complexity: unknown
