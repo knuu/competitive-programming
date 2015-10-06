@@ -14,8 +14,9 @@ from string import ascii_uppercase, ascii_lowercase, ascii_letters, digits, hexd
 prod = lambda l: reduce(mul, l)
 prodmod = lambda l, mod: reduce(lambda x, y: mul(x,y)%mod, l)
 
+
 class WarshallFloyd():
-    """Warshall-Floyd Algorithm: 
+    """Warshall-Floyd Algorithm:
        find the lengths of the shortest paths between all pairs of vertices
     """
 
