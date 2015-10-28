@@ -1,8 +1,6 @@
 #define INF 2147483647
 const int MAX_N = 1 << 17;
 
-int dat[2 * MAX_N - 1];
-
 /*
 RangeMinimumQuery by Segment Tree
 query:
@@ -14,14 +12,14 @@ used in DSL2A(AOJ)
 */
 struct RangeMinimumQuery {
   int N;
+  vector<int> dat;
 
   RangeMinimumQuery(int N_) {
     N = 1;
     while (N < N_)
       N <<= 1;
   
-    for (int i = 0; i < 2 * N - 1; i++)
-      dat[i] = INF;
+    dat.resize(2 * N - 1, INF);
   }
 
   void update(int k, int val) {

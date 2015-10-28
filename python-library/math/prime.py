@@ -5,6 +5,7 @@ class Prime:
     """
 
     def __init__(self, n):
+        assert(n >= 1)
         self.is_prime = [True for _ in range(n+1)]
         self.primeList = []
         self.is_prime[0] = self.is_prime[1] = False
@@ -30,6 +31,7 @@ def miller_rabin(n):
         a = 2, 3, 5, 7, 11, 13, 17, 19, and 23.
         Complexity: O(log^3 n)
     """
+    assert(n >= 1)
     if n == 2:
         return True
     if n <= 1 or not n & 1:
@@ -48,7 +50,7 @@ def miller_rabin(n):
             continue
         x = pow(prime, d, n)
         if x == 1:
-            break
+            continue
         for r in range(s):
             if x == n - 1:
                 break

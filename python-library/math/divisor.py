@@ -8,6 +8,7 @@ class Divisor:
             complexity: O(n^(1/2))
             used in ProjectEuler No.12, yukicoder No.36
         """
+        assert(n >= 1)
         number = n
         if number == 1:
             self.primeFactorization = {1: 1}
@@ -40,6 +41,7 @@ class Divisor:
 
 
 def divisorsList(n):
+    assert(n >= 1)
     divsList = []
     for i in range(1, int(n**0.5)+1):
         if n % i == 0:
