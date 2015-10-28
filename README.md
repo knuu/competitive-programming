@@ -21,6 +21,7 @@ competitive-programming
     - Python3, C++11用テンプレート
 4. その他
     - プログラミングコンテスト参加記(diary)
+    - 典型解法集(typical_wiki)
     - プログラミングコンテストチャレンジブックに載ってる例題/問題のうち、オンラインジャッジにないもの(procon_book)
 
 ## TODO
