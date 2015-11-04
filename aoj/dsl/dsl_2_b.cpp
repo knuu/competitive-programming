@@ -14,66 +14,76 @@ typedef tuple<int, int, int> T;
 #define fst first
 #define snd second
 
-#define INF 2147483647
-const int MAX_N = 1 << 17;
-
 /*
 Range Sum Query by FenwickTree(Binary Indexed Tree)
 
 total number: n
 queries:
-    1. add(i, val): add val to i-th value 
-    2. sum(k): sum(bit[0] + ... + bit[k])
-complexity: O(log n)
+    1. add(i, val): bit[i] += val 
+    2. sum(n): sum(bit[0] + ... + bit[n-1])
+time complexity: O(log n)
+space complexity: O(N)
 
 Self-balancing binary search tree or Segment Tree can do the same, it takes longer to program and complexity also increases.
 
 Thanks: http://hos.ac/slides/20140319_bit.pdf
     
-used in ARC031 C, indeednow finalB E, DSL2B(AOJ)
+used in ARC031 C, indeednow finalB E, DSL2B(AOJ), ARC033 C, yukicoder No.59
 */
 
-int dat[MAX_N + 1];
-
-struct RangeSumQuery {
+template<typename T> struct RangeSumQuery {
   int N;
+  vector<T> dat;
 
-  RangeSumQuery(int N_){
-    N = N_;
+  RangeSumQuery(int N) : N(N) {
+    assert(N > 0);
+    dat.resize(N, 0);
   }
 
-  void update(int k, int val) {
-    while (k < N) {
-      dat[k] += val;
-      k |= k + 1;
+  void add(int k, T val) {
+    assert(0 <= k && k < N);
+    for (int x = k; x < N; x |= x + 1) {
+      dat[x] += val;
     }
   }
 
-  int query(int k) {
-    int ret = 0;
-    while (k >= 0) {
-      ret += dat[k];
-      k = (k & (k + 1)) - 1;
+  // [0, k)
+  T sum(int k) {
+    assert(k >= 0);
+    T ret = 0;
+    for (int x = k - 1; x >= 0; x = (x & (x + 1)) - 1) {
+      ret += dat[x];
     }
     return ret;
+  }
+  // [l, r)
+  T sum(int l, int r) {
+    assert(0 <= l && l < r && r <= N);
+    return sum(r) - sum(l);
+  }
+
+  T index(int k) {
+    assert(0 <= k && k < N);
+    return sum(k+1) - sum(k);
   }
 };
 
 int main() {
   ios_base::sync_with_stdio(false);
+  cin.tie(0);
 
   int n, q;
   cin >> n >> q;
 
-  RangeSumQuery bit(n);
+  RangeSumQuery<int> bit(n);
 
   REP(i, q) {
     int com, x, y;
     cin >> com >> x >> y;
     if (com == 0) {
-      bit.update(x-1, y);
+      bit.add(x-1, y);
     } else if (com == 1) {
-      cout << bit.query(y-1) - bit.query(x-2) << endl;
+      cout << bit.sum(x-1, y) << endl;
     }
   }
   return 0;

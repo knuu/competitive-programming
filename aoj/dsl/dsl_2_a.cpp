@@ -14,25 +14,31 @@ typedef tuple<int, int, int> T;
 #define fst first
 #define snd second
 
-#define INF 2147483647
-const int MAX_N = 1 << 17;
+const int INF = 2147483647;
 
-int dat[2 * MAX_N - 1];
+/*
+RangeMinimumQuery by Segment Tree
+query:
+    1. update(i, val): update i-th value to val(0-indexrd)
+    2. query(low, high): find minimun value in [low, high)
+time complexity: O(log n)
+space complexity: O(2n) 
+used in DSL2A(AOJ)
+*/
+template<typename T> struct RangeMinQuery {
+  int N, _N;
+  vector<T> dat;
 
-struct RangeMinimumQuery {
-  int N;
-
-  RangeMinimumQuery(int N_) {
+  RangeMinQuery(int _N) : _N(_N) {
+    assert(_N > 0);
     N = 1;
-    while (N < N_)
+    while (N < _N)
       N <<= 1;
-  
-    for (int i = 0; i < 2 * N - 1; i++)
-      dat[i] = INF;
+    dat.resize(2 * N - 1, INF);
   }
 
-  // 0-indexed
-  void update(int k, int val) {
+  void update(int k, T val) {
+    assert(0 <= k && k < _N);
     k += N - 1;
     dat[k] = val;
 
@@ -42,11 +48,12 @@ struct RangeMinimumQuery {
     }  
   }
 
-  // min [a, b)
-  int query(int a, int b) {
+  // [a, b)
+  T query(int a, int b) {
+    assert(0 <= a && a <= b && b <= _N);
     return query(a, b, 0, 0, N);
   }
-  int query(int a, int b, int k, int l, int r) {
+  T query(int a, int b, int k, int l, int r) {
     if (r <= a || b <= l) return INF;
     if (a <= l && r <= b) return dat[k];
 
@@ -58,9 +65,10 @@ struct RangeMinimumQuery {
 
 int main() {
   ios_base::sync_with_stdio(false);
+  cin.tie(0);
   int n, q;
   cin >> n >> q;
-  RangeMinimumQuery segtree(n);
+  RangeMinQuery<int> segtree(n);
 
   REP(i, q) {
     int com, x, y;

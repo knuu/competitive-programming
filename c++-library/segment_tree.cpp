@@ -1,5 +1,4 @@
-#define INF 2147483647
-const int MAX_N = 1 << 17;
+const int INF = 1<<29;
 
 /*
 RangeMinimumQuery by Segment Tree
@@ -10,19 +9,20 @@ time complexity: O(log n)
 space complexity: O(2n) 
 used in DSL2A(AOJ)
 */
-struct RangeMinimumQuery {
-  int N;
-  vector<int> dat;
+template<typename T> struct RangeMinQuery {
+  int N, _N;
+  vector<T> dat;
 
-  RangeMinimumQuery(int N_) {
+  RangeMinQuery(int _N) : _N(_N) {
+    assert(_N > 0);
     N = 1;
-    while (N < N_)
+    while (N < _N)
       N <<= 1;
-  
     dat.resize(2 * N - 1, INF);
   }
 
-  void update(int k, int val) {
+  void update(int k, T val) {
+    assert(0 <= k && k < _N);
     k += N - 1;
     dat[k] = val;
 
@@ -32,10 +32,12 @@ struct RangeMinimumQuery {
     }  
   }
 
-  int query(int a, int b) {
+  // [a, b)
+  T query(int a, int b) {
+    assert(0 <= a && a <= b && b <= _N);
     return query(a, b, 0, 0, N);
   }
-  int query(int a, int b, int k, int l, int r) {
+  T query(int a, int b, int k, int l, int r) {
     if (r <= a || b <= l) return INF;
     if (a <= l && r <= b) return dat[k];
 
