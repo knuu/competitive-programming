@@ -1,5 +1,5 @@
 http://codeforces.com/contest/591
-# div2 A Wizards' Duel
+# div2 A. Wizards' Duel
 
 - 問題
     - Lの間隔を左端から速度p、右端から速度qで反対側に向かう。左端からどこの地点で交差するか？
@@ -8,7 +8,7 @@ http://codeforces.com/contest/591
 - タグ: 算数
 - レベル: 1
 
-# div2 B Rebranding
+# div2 B. Rebranding
 
 - 問題
     - 長さN(2\*10^5以下)の文字列と、M個(2\*10^5以下)のクエリが与えられる。クエリはアルファベットのペア(s1, s2)であり、文字列中のs1をs2に、s2をs1に変換する。全てのクエリを処理し終えた後の文字列はなにか。

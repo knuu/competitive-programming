@@ -27,9 +27,9 @@
 # No.59 鉄道の旅
 
 - 感想
-    - タグを見ていたので、どうFenwick treeに落としこむかを考えた
-    - K以上の合計(区間和)が必要なので、Fenwick tree
-- タグ: Fenwick tree
+    - タグを見ていたので、どうFenwick Treeに落としこむかを考えた
+    - K以上の合計(区間和)が必要なので、Fenwick Tree
+- タグ: Fenwick Tree
 - レベル: 3
 
 # No.83 最大マッチング

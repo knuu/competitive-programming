@@ -1,10 +1,10 @@
 http://codeforces.com/contest/588
-# div2 A Duff and Meat
+# div2 A. Duff and Meat
 
 - タグ: シミュレーション
 - レベル: 1
 
-# div2 B Duff in Love
+# div2 B. Duff in Love
 
 - 問題
     - N(10^12以下)の約数のうち、任意の1より大きい整数aについて、a^2で割り切れない最大の約数を求めよ
@@ -14,7 +14,7 @@ http://codeforces.com/contest/588
 - タグ: 数学、素因数分解、約数
 - レベル: 2
 
-# div1 A Duff and Weight Lifting
+# div1 A. Duff and Weight Lifting
 
 - 問題
     - 2^w(wは10^6以下)の数がN個(10^6以下)ある。sum(2^a1 + ... + 2^an)もまた2の累乗となるように、できるだけ多くの数を組み合わせたとき、最小何個にすることができるか

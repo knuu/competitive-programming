@@ -1,6 +1,6 @@
 http://codeforces.com/contest/351
 
-# div1 A Jeff and Rounding
+# div1 A. Jeff and Rounding
 
 - 解法
     - この問題では小数部分のみについて着目する。

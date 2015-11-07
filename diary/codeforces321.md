@@ -10,7 +10,7 @@
 
 # div2 C. Kefa and Park
 
-- タグ: グラフ、木、深さ優先探索、DFS
+- タグ: グラフ、木、DFS
 - レベル: 2
 
 # div2 D. Kefa and Dishes
