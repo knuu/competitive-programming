@@ -1,21 +1,24 @@
-ll powmod(ll n, ll k, ll mod) {
+template <typename T>
+T powmod(T n, T k, T mod) {
   if (k == 0) {
     return 1;
   } else if (k % 2 == 0) {
-    return powmod(n * n, k / 2, mod) % mod;
+    return powmod(n * n % mod, k / 2, mod);
   } else {
-    return (n * powmod(n, k-1, mod)) % mod;
+    return n * powmod(n, k-1, mod) % mod;
   }
 }
 
-ll inv(ll x, ll mod) {
+template <typename T>
+T inv(T x, T mod) {
   return powmod(x, x-2, mod);
 }
 
-ll comb(ll n, ll k) {
+template <typename T>
+T comb(T n, T k, T mod) {
   assert (0 <= k && k <= n);
-  ll ret = 1;
-  REP(i, k) {
+  T ret = 1;
+  for (T i = 0; i < k; i++) {
     ret *= n - i;
     ret %= mod;
     ret *= inv(i+1);
