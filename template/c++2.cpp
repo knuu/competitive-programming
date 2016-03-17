@@ -27,6 +27,9 @@ typedef pair<int, P> T;
 #define ALL(c) c.begin(), c.end()
 #define DUMP( x ) cerr << #x << " = " << ( x ) << endl
 
+const int dr[4] = {-1, 0, 1, 0};
+const int dc[4] = {0, 1, 0, -1};
+
 int main() {
   // Use scanf in CodeForces!
   cin.tie(0);

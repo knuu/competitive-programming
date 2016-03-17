@@ -11,7 +11,7 @@ struct BipartiteMatching {
   vector<Edges> G;
   int V, source, sink;
   vector<int> level, iter;
-  
+
   BipartiteMatching(int V1, int V2) {
     V = V1 + V2 + 2, source = V-2, sink = V-1;
     G.resize(V);
@@ -19,8 +19,8 @@ struct BipartiteMatching {
   }
 
   void add_edge(int from, int to) {
-    G[from].push_back(Edge(to, (int)G[to].size(), 1));
-    G[to].push_back(Edge(from, (int)G[from].size()-1, 0));
+    G[from].emplace_back(to, G[to].size(), 1);
+    G[to].emplace_back(from, (int)G[from].size()-1, 0);
   }
 
   void add_sink_source(int V1, int V2) {
@@ -31,16 +31,16 @@ struct BipartiteMatching {
   void bfs(int source) {
     level.assign(V, -1);
     queue<int> que;
-    que.push(source);
+    que.emplace(source);
     level[source] = 0;
     while (!que.empty()) {
       int v = que.front(); que.pop();
       for (int i = 0; i < (int)G[v].size(); i++) {
-	Edge &e = G[v][i];
-	if (e.cap > 0 && level[e.to] < 0) {
-	  level[e.to] = level[v] + 1;
-	  que.push(e.to);
-	}
+        Edge &e = G[v][i];
+        if (e.cap > 0 && level[e.to] < 0) {
+          level[e.to] = level[v] + 1;
+          que.emplace(e.to);
+        }
       }
     }
   }
@@ -50,12 +50,12 @@ struct BipartiteMatching {
     for (int &i = iter[v]; i < (int)G[v].size(); i++) {
       Edge &e = G[v][i];
       if (e.cap > 0 && level[v] < level[e.to]) {
-	T d = dfs(e.to, sink, min(e.cap, flow));
-	if (d > 0) {
-	  e.cap -= d;
-	  G[e.to][e.rev].cap += d;
-	  return d;
-	}
+        T d = dfs(e.to, sink, min(e.cap, flow));
+        if (d > 0) {
+          e.cap -= d;
+          G[e.to][e.rev].cap += d;
+          return d;
+        }
       }
     }
     return 0;
@@ -69,7 +69,7 @@ struct BipartiteMatching {
       iter.assign(V, 0);
       T f;
       while ((f = dfs(source, sink, INF)) > 0) {
-	flow += f;
+        flow += f;
       }
     }
   }

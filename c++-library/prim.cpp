@@ -1,61 +1,37 @@
-#define INF 1<<30
-#define MAX_V 1000000
-
-// graph by adjacency list
-struct Edge {
-  int dst, weight;
-  Edge(int dst, int weight) :
-    dst(dst), weight(weight) { }
-  bool operator < (const Edge &e) const {
-    return weight > e.weight; // reverse
-  }
-};
-
-struct Graph {
-  int V;
-  std::vector<Edge> E[MAX_V];
-
-  Graph(int V) : V(V) { }
-
-  void add_edge(int src, int dst, int weight) {
-    E[src].push_back(Edge(dst, weight));
-  }
-};
-
+template <typename T>
 struct Node {
-  int v, dist;
-  Node(int v, int dist) :
-    v(v), dist(dist) { };
-  bool operator < (const Node &n) const {
+  int v, src; T dist;
+  Node(int v, int src, T dist) : v(v), src(src), dist(dist) { };
+  bool operator < (const Node<T> &n) const {
     return dist > n.dist; // reverse
   }
 };
 
+template <typename T>
 struct MinimumSpanningTree {
-  Graph g;
-  std::vector<Node> mst;
+  Graph<T> g;
+  vector<Node<T>> mst;
   int mincost;
 
-  MinimumSpanningTree(const Graph &g) : g(g) { }
+  MinimumSpanningTree(const Graph<T> &g) : g(g) { }
 
-  int find_mincost() {
+  int prim() {
     mincost = 0;
 
-    bool used[MAX_V];
-    std::fill(used, used + g.V, false);
+    vector<bool> used(g.V, false);
 
-    std::priority_queue<Node> que;
-    que.push(Node(0, 0));
+    priority_queue<Node<T>> que;
+    que.emplace(0, -1, 0);
 
     while (!que.empty()) {
-      Node n = que.top(); que.pop();
-      int v = n.v, cost = n.dist;
+      Node<T> n = que.top(); que.pop();
+      int v = n.v; T cost = n.dist;
       if (used[v]) continue;
-      mst.push_back(n);
+      if (n.src != -1) mst.push_back(n);
       used[v] = true;
       mincost += cost;
-      for (Edge e : g.E[v]) {
-	if (!used[e.dst]) que.push(Node(e.dst, e.weight));
+      for (Edge<T> e : g.E[v]) {
+        if (!used[e.dst]) que.emplace(e.dst, v, e.weight);
       }
     }
     return mincost;

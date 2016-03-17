@@ -1,73 +1,49 @@
-#define INF 1<<30
-#define MAX_V 1000000
+#define INF INT_MAX
 
-// graph by adjacency list
-struct Edge {
-  int dst, weight;
-  Edge(int dst, int weight) :
-    dst(dst), weight(weight) { }
-  bool operator < (const Edge &e) const {
-    return weight > e.weight;
-  }
-};
-
-struct Graph {
-  int V;
-  std::vector<Edge> E[MAX_V];
-
-  Graph(int V) : V(V) { }
-
-  void add_edge(int src, int dst, int weight) {
-    E[src].push_back(Edge(dst, weight));
-  }
-};
-
+template <typename T>
 struct Node {
-  int v, dist;
-  Node(int v, int dist) :
-    v(v), dist(dist) { };
-  bool operator < (const Node &n) const {
+  int v; T dist;
+  Node(int v, T dist) : v(v), dist(dist) { };
+  bool operator < (const Node<T> &n) const {
     return dist > n.dist; // reverse
   }
 };
 
+template <typename T>
 struct ShortestPath {
-  const Graph g;
-  int start;
-  int dist[MAX_V], prev[MAX_V];
+  const Graph<T> g;
+  vector<T> dist;
+  vector<int> prev;
 
-  ShortestPath(const Graph g, int start) :
-    g(g), start(start) { }
+  ShortestPath(const Graph<T> g) : g(g) { dist.resize(g.V), prev.resize(g.V); }
 
-  void dijkstra() {
-    std::priority_queue<Node> que;
-    std::fill(dist, dist + g.V, INF);
+  void dijkstra(int start) {
+    priority_queue<Node<T>> que;
+    dist.assign(g.V, INF);
     dist[start] = 0;
-    que.push(Node(start, 0));
+    que.emplace(start, 0);
     prev[0] = -1;
 
     while (!que.empty()) {
-      Node n = que.top(); que.pop();
-      int v = n.v, cost = n.dist;
+      Node<T> n = que.top(); que.pop();
+      int v = n.v; T cost = n.dist;
       if (dist[v] < cost) continue;
-      for (Edge e : g.E[v]) {
-	if (dist[v] + e.weight < dist[e.dst]) {
-	  dist[e.dst] = dist[v] + e.weight;
-	  prev[e.dst] = v;
-	  que.push(Node(e.dst, dist[e.dst]));
-	}
+      for (Edge<T> e : g.E[v]) {
+        if (dist[v] < dist[e.dst] - e.weight) {
+          dist[e.dst] = dist[v] + e.weight;
+          prev[e.dst] = v;
+          que.emplace(e.dst, dist[e.dst]);
+        }
       }
     }
   }
 
-  std::vector<int> build_path(int goal) {
-    std::vector<int> path;
+  vector<int> build_path(int goal) {
+    vector<int> path;
     for (int v = goal; v != -1; v = prev[v]) {
-      path.push_back(v);
+      path.emplace_back(v);
     }
-    std::reverse(path.begin(), path.end());
+    reverse(path.begin(), path.end());
     return path;
   }
 };
-
-  

@@ -11,27 +11,27 @@ struct MaxFlow {
   vector<Edges> G;
   int V;
   vector<int> level, iter;
-  
+
   MaxFlow(int V) : V(V) { G.resize(V); }
 
   void add_edge(int from, int to, T cap) {
-    G[from].push_back(Edge(to, (int)G[to].size(), cap));
-    G[to].push_back(Edge(from, (int)G[from].size()-1, 0));
+    G[from].emplace_back(to, G[to].size(), cap);
+    G[to].emplace_back(from, (int)G[from].size()-1, 0);
   }
 
   void bfs(int source) {
     level.assign(V, -1);
     queue<int> que;
-    que.push(source);
+    que.emplace(source);
     level[source] = 0;
     while (!que.empty()) {
       int v = que.front(); que.pop();
       for (int i = 0; i < (int)G[v].size(); i++) {
-	Edge &e = G[v][i];
-	if (e.cap > 0 && level[e.to] < 0) {
-	  level[e.to] = level[v] + 1;
-	  que.push(e.to);
-	}
+        Edge &e = G[v][i];
+        if (e.cap > 0 && level[e.to] < 0) {
+          level[e.to] = level[v] + 1;
+          que.emplace(e.to);
+        }
       }
     }
   }
@@ -41,12 +41,12 @@ struct MaxFlow {
     for (int &i = iter[v]; i < (int)G[v].size(); i++) {
       Edge &e = G[v][i];
       if (e.cap > 0 && level[v] < level[e.to]) {
-	T d = dfs(e.to, sink, min(e.cap, flow));
-	if (d > 0) {
-	  e.cap -= d;
-	  G[e.to][e.rev].cap += d;
-	  return d;
-	}
+        T d = dfs(e.to, sink, min(e.cap, flow));
+        if (d > 0) {
+          e.cap -= d;
+          G[e.to][e.rev].cap += d;
+          return d;
+        }
       }
     }
     return 0;
@@ -59,9 +59,7 @@ struct MaxFlow {
       if (level[sink] < 0) return flow;
       iter.assign(V, 0);
       T f;
-      while ((f = dfs(source, sink, INF)) > 0) {
-	flow += f;
-      }
+      while ((f = dfs(source, sink, INF)) > 0) flow += f;
     }
   }
 };

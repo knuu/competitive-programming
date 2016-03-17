@@ -1,7 +1,7 @@
 import heapq
 
 
-class Prim:
+class MinimumSpanningTree:
     """ Prim's algorithm: find minimum spanning tree
         Complexity: O(E log(V))
         used in GRL2A(AOJ)

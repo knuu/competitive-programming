@@ -1,3 +1,4 @@
+from collections import defaultdict
 from pathlib import Path
 
 
@@ -53,4 +54,7 @@ def get_all_tags(problems=all_problems):
 if __name__ == '__main__':
     tagged_all_problems = [(tag, len(search_tag(tag))) for tag in get_all_tags()]
     tagged_all_problems.sort(key=lambda x: x[0])
-    print(*search_tag('二分探索'), sep='\n')
+    for tag, c in tagged_all_problems:
+        print(tag, c)
+    print(*search_tag('bitDP'), sep='\n')
+

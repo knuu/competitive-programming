@@ -7,9 +7,9 @@ struct Prime {
     sieve[0] = sieve[1] = false;
     for (int i = 2; i <= N; i++) {
       if (sieve[i]) {
-	primes.push_back(i);
-	for (int j = 2 * i; j <= N; j += i) sieve[j] = false;
+        primes.push_back(i);
+        for (int j = 2 * i; j <= N; j += i) sieve[j] = false;
       }
-    }    
+    }
   }
 };

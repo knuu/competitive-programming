@@ -5,95 +5,69 @@ typedef long long int ll;
 typedef pair<int, int> P;
 typedef pair<ll, ll> Pll;
 typedef vector<int> Vi;
-typedef tuple<int, int, int> T;
+//typedef tuple<int, int, int> T;
 #define FOR(i,s,x) for(int i=s;i<(int)(x);i++)
 #define REP(i,x) FOR(i,0,x)
 #define ALL(c) c.begin(), c.end()
 #define DUMP( x ) cerr << #x << " = " << ( x ) << endl
 
-#define INF 1<<30
-#define MAX_V 10010
+const int dr[4] = {-1, 0, 1, 0};
+const int dc[4] = {0, 1, 0, -1};
 
 // graph by adjacency list
+template <typename T>
 struct Edge {
-  int src, dst, weight;
-  Edge(int src, int dst, int weight) :
-    src(src), dst(dst), weight(weight) { }
-  bool operator < (const Edge &e) const {
-    return weight < e.weight;
+  int dst; T weight;
+  Edge(int dst, T weight) : dst(dst), weight(weight) { }
+  bool operator < (const Edge<T> &e) const {
+    return weight > e.weight;
   }
 };
 
+template <typename T>
 struct Graph {
   int V;
-  std::vector<Edge> E;
-
-  Graph(int V) : V(V) { }
-
-  void add_edge(int src, int dst, int weight) {
-    E.push_back(Edge(src, dst, weight));
+  vector<vector<Edge<T>>> E;
+  Graph(int V) : V(V) { E.resize(V); }
+  void add_edge(int src, int dst, T weight) {
+    E[src].emplace_back(dst, weight);
   }
 };
 
-
-struct DisjointSet {
-  int parent[MAX_V];
-  int rank[MAX_V];
-
-  DisjointSet(int N) {
-    for (int i = 0; i < N; i++) {
-      parent[i] = i;
-      rank[i] = 0;
-    }
+template <typename T>
+struct Node {
+  int v, src; T dist;
+  Node(int v, int src, T dist) : v(v), src(src), dist(dist) { };
+  bool operator < (const Node<T> &n) const {
+    return dist > n.dist; // reverse
   }
-
-  int find(int x) {
-    if (parent[x] == x) {
-      return x;
-    } else {
-      return parent[x] = find(parent[x]);
-    }
-  }
-
-  void unite(int x, int y) {
-    x = find(x);
-    y = find(y);
-    if (x == y) return ;
-
-    if (rank[x] < rank[y]) {
-      parent[x] = y;
-    } else {
-      parent[y] = x;
-      if (rank[x] == rank[y]) rank[x]++;
-    }
-  }
-
-  bool same(int x, int y) {
-    return find(x) == find(y);
-  }
-      
 };
 
+template <typename T>
 struct MinimumSpanningTree {
-  Graph g;
-  std::vector<Edge> msp;
+  Graph<T> g;
+  vector<Node<T>> mst;
   int mincost;
 
-  MinimumSpanningTree(const Graph &g) : g(g) { }
+  MinimumSpanningTree(const Graph<T> &g) : g(g) { }
 
-  int find_mincost() {
+  int prim() {
     mincost = 0;
-    std::sort(g.E.begin(), g.E.end());
 
-    DisjointSet uf(g.V);
+    vector<bool> used(g.V, false);
 
-    for (int i = 0, edge_count = g.V - 1; edge_count; i++) {
-      assert(i < (int)g.E.size());
-      Edge e = g.E[i];
-      if (!uf.same(e.src, e.dst)) {
-	uf.unite(e.src, e.dst);
-	mincost += e.weight;
-	edge_count--;
+    priority_queue<Node<T>> que;
+    que.emplace(0, -1, 0);
+
+    while (!que.empty()) {
+      Node<T> n = que.top(); que.pop();
+      int v = n.v; T cost = n.dist;
+      if (used[v]) continue;
+      if (n.src != -1) mst.push_back(n);
+      used[v] = true;
+      mincost += cost;
+      for (Edge<T> e : g.E[v]) {
+	if (!used[e.dst]) que.emplace(e.dst, v, e.weight);
       }
     }
     return mincost;
@@ -104,18 +78,14 @@ int main() {
   // use scanf in CodeForces!
   cin.tie(0);
   ios_base::sync_with_stdio(false);
-
-  int V, E;
-  cin >> V >> E;
-  Graph g(V);
-  REP(i, E) {
-    int src, dst, weight;
-    cin >> src >> dst >> weight;
-    g.add_edge(src, dst, weight);
-    g.add_edge(dst, src, weight);
+  int V, E; cin >> V >> E;
+  Graph<int> g(V);
+  REP(_, E) {
+    int s, t, w; cin >> s >> t >> w;
+    g.add_edge(s, t, w);
+    g.add_edge(t, s, w);
   }
-
-  MinimumSpanningTree mst(g);
-  cout << mst.find_mincost() << endl;
+  MinimumSpanningTree<int> mst(g);
+  cout << mst.prim() << endl;
   return 0;
 }

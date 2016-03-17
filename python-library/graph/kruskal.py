@@ -1,4 +1,4 @@
-class Kruskal:
+class MinimumSpanningTree:
     """ Kruskal's algorithm: find minimum spanning tree
         Complexity: O(E log(V))
         used in GRL2A(AOJ)
@@ -20,7 +20,7 @@ class Kruskal:
         self.mincost = 0
         self.minSpanningTree = []
         uf = UnionFindTree(V)
-        while len(self.minSpanningTree) < V:
+        while len(self.minSpanningTree) < V-1:
             cost, v1, v2 = edges.pop()
             if uf.same(v1, v2) == False:
                 self.mincost += cost

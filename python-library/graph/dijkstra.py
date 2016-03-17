@@ -1,7 +1,7 @@
 import heapq
 
 
-class Dijkstra:
+class ShortestPath:
     """Dijkstra's algorithm : find the shortest path from a vertex
        Complexity: O(E + log(V))
        used in GRL1A(AOJ)

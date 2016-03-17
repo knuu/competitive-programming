@@ -5,62 +5,59 @@ typedef long long int ll;
 typedef pair<int, int> P;
 typedef pair<ll, ll> Pll;
 typedef vector<int> Vi;
-typedef tuple<int, int, int> T;
+//typedef tuple<int, int, int> T;
 #define FOR(i,s,x) for(int i=s;i<(int)(x);i++)
 #define REP(i,x) FOR(i,0,x)
 #define ALL(c) c.begin(), c.end()
 #define DUMP( x ) cerr << #x << " = " << ( x ) << endl
 
+const int dr[4] = {-1, 0, 1, 0};
+const int dc[4] = {0, 1, 0, -1};
+
 #define INF 1<<30
-#define MAX_V 1024
 
 // graph by adjacency list
+template <typename T>
 struct Edge {
-  int dst, weight;
-  Edge(int dst, int weight) :
-    dst(dst), weight(weight) { }
-  bool operator < (const Edge &e) const {
+  int dst; T weight;
+  Edge(int dst, T weight) : dst(dst), weight(weight) { }
+  bool operator < (const Edge<T> &e) const {
     return weight > e.weight;
   }
 };
 
+template <typename T>
 struct Graph {
   int V;
-  std::vector<Edge> E[MAX_V];
-
-  Graph(int V) : V(V) { }
-
-  void add_edge(int src, int dst, int weight) {
-    E[src].push_back(Edge(dst, weight));
+  vector<vector<Edge<T>>> E;
+  Graph(int V) : V(V) { E.resize(V); }
+  void add_edge(int src, int dst, T weight) {
+    E[src].emplace_back(dst, weight);
   }
 };
 
-// find shortest path by Bellman-Ford Algorithm
+template <typename T>
 struct ShortestPath {
-  const Graph g;
-  int start;
-  int dist[MAX_V], prev[MAX_V];
-  bool negative_loop;
+  const Graph<T> g;
+  vector<T> dist;
+  vector<int> prev;
 
-  ShortestPath(const Graph g, int start) :
-    g(g), start(start) { }
+  ShortestPath(const Graph<T> g) : g(g) { dist.resize(g.V), prev.resize(g.V); }
 
-  void bellman_ford() {
-    negative_loop = false;
-    std::fill(dist, dist + g.V, INF);
+  void bellman_ford(int start) {
+    dist.assign(g.V, INF);
     dist[start] = 0;
     prev[start] = -1;
-    for (int cnt = 0; cnt < g.V; cnt++) {
+    while (true) {
       bool update = false;
       for (int i = 0; i < g.V; i++) {
-	for (Edge e : g.E[i]) {
-	  if (dist[i] != INF && dist[i] + e.weight < dist[e.dst]) {
-	    dist[e.dst] = dist[i] + e.weight;
-	    prev[e.dst] = i;
-	    if (cnt == g.V - 1) negative_loop = true;
-	    update = true;
-	  }
-	}
+        for (Edge<T> e : g.E[i]) {
+          if (dist[i] != INF && dist[i] + e.weight < dist[e.dst]) {
+            dist[e.dst] = dist[i] + e.weight;
+            prev[e.dst] = i;
+            update = true;
+          }
+        }
       }
       if (!update) break;
     }
@@ -69,14 +66,26 @@ struct ShortestPath {
   vector<int> build_path(int goal) {
     vector<int> path;
     for (int v = goal; v != -1; v = prev[v]) {
-      path.push_back(v);
+      path.emplace_back(v);
     }
-    std::reverse(path.begin(), path.end());
+    reverse(path.begin(), path.end());
     return path;
   }
 
-  bool has_negative_loop() {
-    return negative_loop;
+  bool find_negative_loop(int start) {
+    dist.assign(g.V, INF);
+    dist[start] = 0;
+    for (int i = 0; i < g.V; i++) {
+      for (int j = 0; j < g.V; j++) {
+        for (Edge<T> e : g.E[j]) {
+          if (dist[j] != INF && dist[j] + e.weight < dist[e.dst]) {
+            dist[e.dst] = dist[j] + e.weight;
+            if (i == g.V - 1) return true;
+          }
+        }
+      }
+    }
+    return false;
   }
 };
 
@@ -84,30 +93,23 @@ int main() {
   // use scanf in CodeForces!
   cin.tie(0);
   ios_base::sync_with_stdio(false);
-
-  int V, E, start;
-  cin >> V >> E >> start;
-
-  Graph g(V);
-  REP(i, E) {
-    int src, dst, weight;
-    cin >> src >> dst >> weight;
-    g.add_edge(src, dst, weight);
+  int V, E, r; cin >> V >> E >> r;
+  Graph<int> g(V);
+  REP(_, E) {
+    int s, t, d; cin >> s >> t >> d;
+    g.add_edge(s, t, d);
   }
-
-  ShortestPath sp(g, start);
-  sp.bellman_ford();
-  if (sp.has_negative_loop()) {
+  ShortestPath<int> sp(g);
+  if (sp.find_negative_loop(r)) {
     cout << "NEGATIVE CYCLE" << endl;
   } else {
     REP(i, g.V) {
       if (sp.dist[i] == INF) {
-	cout << "INF" << endl;
+        cout << "INF" << endl;
       } else {
-	cout << sp.dist[i] << endl;
+        cout << sp.dist[i] << endl;
       }
     }
-  }  
-
+  }
   return 0;
 }
