@@ -11,7 +11,7 @@ T powmod(T n, T k, T mod) {
 
 template <typename T>
 T inv(T x, T mod) {
-  return powmod(x, x-2, mod);
+  return powmod(x, mod-2, mod);
 }
 
 template <typename T>
