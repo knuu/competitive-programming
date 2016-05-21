@@ -2,3 +2,5 @@ python-library/*/__pycache__/*
 diary/__pycache__/*
 other/*
 c++-library/a.out
+
+*.out
