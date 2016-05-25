@@ -5,6 +5,11 @@ competitive-programming
 
 使用言語とか混ざりまくり
 
+- C (もう使ってない)
+- C++11
+- Python3
+- [Nim](http://nim-lang.org/) (旧Nimrod、最近)
+
 1. オンラインコンテスト
     - [AtCoder](http://atcoder.jp/)
     - [Codeforces](http://codeforces.com/)
@@ -15,6 +20,7 @@ competitive-programming
 2. オンラインジャッジ
     - [Aizu Online Judge](http://judge.u-aizu.ac.jp/onlinejudge/index.jsp)
     - [PKU JudgeOnline](http://poj.org/)
+    - [LeetCode Online Judge](https://leetcode.com/)
 3. 競技プログラミング用ライブラリ
     - Python3用ライブラリ
     - C++11用ライブラリ
