@@ -1,13 +1,16 @@
-from collections import deque
-class Dinic:
+import collections
+
+
+class MaxFlow:
     """Dinic Algorithm: find max-flow
        complexity: O(EV^2)
+       used in GRL6A(AOJ)
     """
-    class edge:
+    class Edge:
         def __init__(self, to, cap, rev):
             self.to, self.cap, self.rev = to, cap, rev
 
-    def __init__(self, V, E, source, sink):
+    def __init__(self, V):
         """ V: the number of vertexes
             E: adjacency list
             source: start point
@@ -15,11 +18,10 @@ class Dinic:
         """
         self.V = V
         self.E = [[] for _ in range(V)]
-        for fr in range(V):
-            for to, cap in E[fr]:
-                self.E[fr].append(self.edge(to, cap, len(self.E[to])))
-                self.E[to].append(self.edge(fr, 0, len(self.E[fr])-1))
-        self.maxflow = self.dinic(source, sink)
+
+    def add_edge(self, fr, to, cap):
+        self.E[fr].append(self.Edge(to, cap, len(self.E[to])))
+        self.E[to].append(self.Edge(fr, 0, len(self.E[fr])-1))
 
     def dinic(self, source, sink):
         """find max-flow"""
@@ -35,7 +37,7 @@ class Dinic:
                 if flow > 0:
                     maxflow += flow
                 else:
-                    break            
+                    break
 
     def dfs(self, vertex, sink, flow):
         """find augmenting path"""
@@ -54,21 +56,23 @@ class Dinic:
 
     def bfs(self, start):
         """find shortest path from start"""
-        que = deque()
+        que = collections.deque()
         self.level = [-1] * self.V
         que.append(start)
         self.level[start] = 0
-        
+
         while que:
             fr = que.popleft()
             for e in self.E[fr]:
                 if e.cap > 0 and self.level[e.to] < 0:
                     self.level[e.to] = self.level[fr] + 1
-                    que.append(e.to)        
+                    que.append(e.to)
 
 V, E = map(int, input().split())
-edge = [[] for _ in range(V)]
+mf = MaxFlow(V)
+source, sink = 0, V-1
+
 for _ in range(E):
-    u, v, cap = map(int, input().split())
-    edge[u].append((v, cap))
-print(Dinic(V, edge, 0, V-1).maxflow)
+    s, t, c = map(int, input().split())
+    mf.add_edge(s, t, c)
+print(mf.dinic(source, sink))

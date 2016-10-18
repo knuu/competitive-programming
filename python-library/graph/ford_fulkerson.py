@@ -21,9 +21,8 @@ class FordFulkerson:
                 self.E[to].append(self.edge(fr, 0, len(self.E[fr])-1))
         self.maxflow = self.ford_fulkerson(source, sink)
 
-    def ford_fulkerson(self, source, sink):
+    def ford_fulkerson(self, source, sink, INF=10**9):
         """find max-flow"""
-        INF = float('inf')
         maxflow = 0
         while True:
             self.used = [False] * self.V

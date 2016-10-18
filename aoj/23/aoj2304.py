@@ -66,3 +66,21 @@ class MaxFlow:
                 if e.cap > 0 and self.level[e.to] < 0:
                     self.level[e.to] = self.level[fr] + 1
                     que.append(e.to)
+N, M = map(int, input().split())
+mf = MaxFlow(N)
+rev_edge = []
+for i in range(M):
+    s, t = [int(x)-1 for x in input().split()]
+    mf.add_edge(s, t, 1)
+    mf.add_edge(t, s, 1)
+    rev_edge.append((i+1, t, len(mf.E[t])-1))
+source, sink = [int(x)-1 for x in input().split()]
+print(mf.dinic(source, sink))
+ans = []
+for i, t, idx in rev_edge:
+    e = mf.E[t][idx]
+    if mf.E[e.to][e.rev].cap == 1:
+        ans.append(i)
+print(len(ans))
+if ans:
+    print(*ans, sep='\n')

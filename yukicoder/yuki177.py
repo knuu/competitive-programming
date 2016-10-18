@@ -66,3 +66,23 @@ class MaxFlow:
                 if e.cap > 0 and self.level[e.to] < 0:
                     self.level[e.to] = self.level[fr] + 1
                     que.append(e.to)
+
+W = int(input())
+N = int(input())
+J = [int(x) for x in input().split()]
+M = int(input())
+C = [int(x) for x in input().split()]
+
+mf = MaxFlow(N+M+2)
+source, sink = N+M, N+M+1
+INF = 10**9
+for i, j in enumerate(J):
+    mf.add_edge(source, i, j)
+for i, c in enumerate(C):
+    mf.add_edge(N+i, sink, c)
+    _, *X = [int(x)-1 for x in input().split()]
+    for j in range(N):
+        if j not in X:
+            mf.add_edge(j, i+N, INF)
+maxflow = mf.dinic(source, sink)
+print("SHIROBAKO" if maxflow >= W else "BANSAKUTSUKITA")
