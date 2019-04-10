@@ -4,3 +4,4 @@ other/*
 c++-library/a.out
 
 *.out
+*.DS_Store
